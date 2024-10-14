@@ -5,5 +5,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class CrmProjectApplicationTests {
+    @Test
+	void contextLoads() {
+	}
 
 }
