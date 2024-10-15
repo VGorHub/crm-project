@@ -1,12 +1,12 @@
 package com.example.crm_project.service;
 
+import com.example.crm_project.exception.SellerNotFoundException;
 import com.example.crm_project.model.Seller;
 import com.example.crm_project.repository.SellerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,8 +18,9 @@ public class SellerService {
         return sellerRepository.findAll();
     }
 
-    public Optional<Seller> findById(Long id) {
-        return sellerRepository.findById(id);
+    public Seller findById(Long id) {
+        return sellerRepository.findById(id)
+                .orElseThrow(() -> new SellerNotFoundException("Продавец с id " + id + " не найден"));
     }
 
     public Seller save(Seller seller) {
@@ -27,6 +28,9 @@ public class SellerService {
     }
 
     public void deleteById(Long id) {
+        if (!sellerRepository.existsById(id)) {
+            throw new SellerNotFoundException("Продавец с id " + id + " не найден");
+        }
         sellerRepository.deleteById(id);
     }
 }

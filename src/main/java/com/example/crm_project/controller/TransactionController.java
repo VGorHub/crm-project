@@ -34,19 +34,17 @@ public class TransactionController {
                 .collect(Collectors.toList());
     }
 
-    @Operation(summary = "Получить информацию о конкретной транзакции")
     @GetMapping("/{id}")
     public ResponseEntity<TransactionResponse> getTransactionById(@PathVariable Long id) {
-        return transactionService.findById(id)
-                .map(transaction -> ResponseEntity.ok(convertToResponse(transaction)))
-                .orElse(ResponseEntity.notFound().build());
+        Transaction transaction = transactionService.findById(id);
+        TransactionResponse response = convertToResponse(transaction);
+        return ResponseEntity.ok(response);
     }
 
     @Operation(summary = "Создать новую транзакцию")
     @PostMapping
     public ResponseEntity<TransactionResponse> createTransaction(@Valid @RequestBody CreateTransactionRequest request) {
-        Seller seller = sellerService.findById(request.getSellerId())
-                .orElseThrow(() -> new RuntimeException("Продавец не найден"));
+        Seller seller = sellerService.findById(request.getSellerId());
         Transaction transaction = new Transaction();
         transaction.setSeller(seller);
         transaction.setAmount(request.getAmount());

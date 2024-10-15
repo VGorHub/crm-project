@@ -31,13 +31,13 @@ public class SellerController {
                 .collect(Collectors.toList());
     }
 
-    @Operation(summary = "Получить информацию о конкретном продавце")
     @GetMapping("/{id}")
     public ResponseEntity<SellerResponse> getSellerById(@PathVariable Long id) {
-        return sellerService.findById(id)
-                .map(seller -> ResponseEntity.ok(convertToResponse(seller)))
-                .orElse(ResponseEntity.notFound().build());
+        Seller seller = sellerService.findById(id);
+        SellerResponse response = convertToResponse(seller);
+        return ResponseEntity.ok(response);
     }
+
 
     @Operation(summary = "Создать нового продавца")
     @PostMapping
@@ -49,20 +49,18 @@ public class SellerController {
         return ResponseEntity.ok(convertToResponse(savedSeller));
     }
 
-    @Operation(summary = "Обновить информацию о продавце")
     @PutMapping("/{id}")
     public ResponseEntity<SellerResponse> updateSeller(
             @PathVariable Long id,
             @Valid @RequestBody UpdateSellerRequest request) {
-        return sellerService.findById(id)
-                .map(seller -> {
-                    seller.setName(request.getName());
-                    seller.setContactInfo(request.getContactInfo());
-                    Seller updatedSeller = sellerService.save(seller);
-                    return ResponseEntity.ok(convertToResponse(updatedSeller));
-                })
-                .orElse(ResponseEntity.notFound().build());
+        Seller seller = sellerService.findById(id);
+        seller.setName(request.getName());
+        seller.setContactInfo(request.getContactInfo());
+        Seller updatedSeller = sellerService.save(seller);
+        SellerResponse response = convertToResponse(updatedSeller);
+        return ResponseEntity.ok(response);
     }
+
 
     @Operation(summary = "Удалить продавца")
     @DeleteMapping("/{id}")
