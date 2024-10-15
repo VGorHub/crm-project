@@ -1,5 +1,6 @@
 package com.example.crm_project.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 @Table(name = "transactions")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Transaction {
 
     @Id
