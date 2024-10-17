@@ -53,6 +53,7 @@ spring.jpa.show-sql=true
 - **PostgreSQL** установлен на вашем компьютере.
 
 - **Docker Desktop**  установлены (для запуска через Docker).
+
 ### Сборка проекта
 
 1. **Клонируйте репозиторий**:
@@ -67,11 +68,12 @@ spring.jpa.show-sql=true
    cd crm_project
    ```
 
-3. **Соберите проект с помощью Gradle**:
+3. **Соберите и запустите контейнеры**:
 
    ```bash
-   ./gradlew clean build
+   docker-compose up --build
    ```
+4. Приложение будет доступно по адресу: `http://localhost:8080`
 
 ### Запуск вручную
 
