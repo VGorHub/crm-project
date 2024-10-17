@@ -15,9 +15,9 @@ public class BestPeriodResponse {
     @Schema(description = "Количество транзакций в периоде", example = "10")
     private int transactionCount;
 
-    @Schema(description = "Дата начала периода", example = "2023-10-01T00:00:00")
+    @Schema(description = "Дата начала периода", example = "2024-10-01T00:00:00")
     private LocalDateTime startDate;
 
-    @Schema(description = "Дата окончания периода", example = "2023-10-15T23:59:59")
+    @Schema(description = "Дата окончания периода", example = "2024-10-15T23:59:59")
     private LocalDateTime endDate;
 }

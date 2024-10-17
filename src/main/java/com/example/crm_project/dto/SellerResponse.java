@@ -16,6 +16,6 @@ public class SellerResponse {
     @Schema(description = "Контактная информация продавца", example = "+7 (123) 456-78-90")
     private String contactInfo;
 
-    @Schema(description = "Дата регистрации продавца", example = "2023-10-15T12:34:56")
+    @Schema(description = "Дата регистрации продавца", example = "2024-10-15T12:34:56")
     private String registrationDate;
 }

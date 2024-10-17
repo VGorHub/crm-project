@@ -61,8 +61,8 @@ class AnalyticsControllerTest {
 
         mockMvc.perform(get("/analytics/underperforming-sellers")
                 .param("amount", "10000")
-                .param("startDate", "2023-01-01T00:00:00")
-                .param("endDate", "2023-12-31T23:59:59"))
+                .param("startDate", "2024-01-01T00:00:00")
+                .param("endDate", "2024-12-31T23:59:59"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(2));
     }

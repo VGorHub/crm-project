@@ -25,6 +25,7 @@ CRM Project — это RESTful веб-приложение, разработан
 - **JUnit 5**: Фреймворк для написания тестов.
 - **Mockito**: Мокирование объектов в тестах.
 - **JaCoCo**: Отчет о покрытии кода тестами.
+- **Docker**: Контейнеризация приложения.
 
 ## Инструкции по настройке базы данных
 
@@ -33,12 +34,14 @@ CRM Project — это RESTful веб-приложение, разработан
 Вы можете создать у себя в postgers базу данных под именем crm_db или изменить в файле имя дазы данных на свою в файле application.properties.
 
 ```yaml
-spring.application.name=crm-project
-spring.datasource.url=jdbc:postgresql://localhost:5432/crm_db //Можно поменять на свою
-spring.datasource.username=postgres
-spring.datasource.password=
-spring.jpa.hibernate.ddl-auto=update
+spring.application.name=${SPRING_APPLICATION_NAME:crm-project}
+spring.datasource.url=${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/crm_db} //Можно поменять на свое имя
+spring.datasource.username=${SPRING_DATASOURCE_USERNAME:postgres}
+spring.datasource.password=${SPRING_DATASOURCE_PASSWORD:}
+spring.jpa.hibernate.ddl-auto=${SPRING_JPA_HIBERNATE_DDL_AUTO:update}
 spring.jpa.show-sql=true
+
+
 ```
 
 ## Инструкции по сборке и запуску
@@ -49,8 +52,31 @@ spring.jpa.show-sql=true
 
 - **PostgreSQL** установлен на вашем компьютере.
 
+- **Docker Desktop**  установлены (для запуска через Docker).
 ### Сборка проекта
 
+1. **Клонируйте репозиторий**:
+
+   ```bash
+   git clone https://github.com/yourusername/crm_project.git
+   ```
+
+2. **Перейдите в директорию проекта**:
+
+   ```bash
+   cd crm_project
+   ```
+
+3. **Соберите проект с помощью Gradle**:
+
+   ```bash
+   ./gradlew clean build
+   ```
+
+### Запуск вручную
+
+> [!IMPORTANT]
+> Убедитесь что PostgreSQL установлен и запущен и что в нем создана БД с именем crm_db или тем что вы указали в application.properties.
 1. **Клонируйте репозиторий**:
 
    ```bash
@@ -97,7 +123,8 @@ spring.jpa.show-sql=true
   ```
 
 - **Ответ**:
- ```
+
+  ```json
   [
     {
       "id": 1,
@@ -121,13 +148,15 @@ spring.jpa.show-sql=true
     "contactInfo": "+7 (987) 654-32-10"
   }
   ```
+
 - **Ответ**:
- ```
+
+  ```json
   {
-  "id": 1,
-  "name": "Иван Иванов",
-  "contactInfo": "+7 (123) 456-78-90",
-  "registrationDate": "2024-10-15T12:34:56"
+    "id": 1,
+    "name": "Иван Иванов",
+    "contactInfo": "+7 (123) 456-78-90",
+    "registrationDate": "2024-10-15T12:34:56"
   }
   ```
 
@@ -147,8 +176,10 @@ spring.jpa.show-sql=true
     "paymentType": "CARD"
   }
   ```
- - **Ответ**:
-  ```
+
+- **Ответ**:
+
+  ```json
   {
     "id": 1,
     "sellerId": 1,
@@ -158,7 +189,6 @@ spring.jpa.show-sql=true
   }
   ```
 
-
 #### Получить все транзакции продавца
 
 - **Запрос**:
@@ -166,8 +196,10 @@ spring.jpa.show-sql=true
   ```
   GET /transactions/seller/{sellerId}
   ```
- - **Ответ**:
-  ```
+
+- **Ответ**:
+
+  ```json
   [
     {
       "id": 1,
@@ -188,8 +220,10 @@ spring.jpa.show-sql=true
   ```
   GET /analytics/top-seller?period=month
   ```
+
 - **Ответ**:
-  ```
+
+  ```json
   {
     "id": 1,
     "name": "Иван Иванов",
@@ -206,8 +240,10 @@ spring.jpa.show-sql=true
   ```
   GET /analytics/underperforming-sellers?amount=10000&startDate=2024-01-01T00:00:00&endDate=2024-12-31T23:59:59
   ```
+
 - **Ответ**:
-  ```
+
+  ```json
   [
     {
       "id": 1,
@@ -216,8 +252,9 @@ spring.jpa.show-sql=true
       "registrationDate": "2024-10-15T12:34:56",
       "totalAmount": 15000
     }
-  ]  
+  ]
   ```
+
 
 ## Тестирование
 

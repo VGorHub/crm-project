@@ -21,6 +21,6 @@ public class TransactionResponse {
     @Schema(description = "Тип оплаты (CASH, CARD, TRANSFER)", example = "CARD")
     private String paymentType;
 
-    @Schema(description = "Дата и время транзакции", example = "2023-10-15T12:45:00")
+    @Schema(description = "Дата и время транзакции", example = "2024-10-15T12:45:00")
     private String transactionDate;
 }
